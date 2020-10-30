@@ -29,14 +29,14 @@ This dataset consists a total of **64000** rows.<br>
 Data Analysis on this dataset allowed us to understand the temporal structure of the data and how the generation of solar power varies with time. In particular we were focused on studying the trends and seasonal components of our data.
 
 ### Solar Power Generation Over the Years (2012 - 2019)<br>
-link
+![Solar Power Generation](https://github.com/Aishwarya4823/Solar-Power-Generation-Time-Series-Forecasting/blob/main/Images/Solar%20Power%20Generation%20Image.JPG)
 <br>
 <br>
 
 We clearly observe a yearly pattern in solar power production: each year starts with a low production in solar power, then this production starts to increase to reach its peak at the half of the year (summer months) and then it decreases again to reach its lowest value. This is expected as the solar power production depends on solar energy received, which in its turn depends on the season. We also observe more solar power that is being produced over the years, which translates the increasing effort of Germany to produce more solar power.<br>
 
 ### Autocorrelation of the Time Series of Solar Power Generation<br>
-link
+![Time Series Autocorrelation Image](https://github.com/Aishwarya4823/Solar-Power-Generation-Time-Series-Forecasting/blob/main/Images/Autocorrelation%20Image.JPG)
 <br>
 <br>
 The figure above shows the scatter plots between solar power values and some of its lagged values.We see a strong linear relationship when the lag is 1 hour and this relationship becomes weaker as the lag value starts to increase.<br>
@@ -46,14 +46,16 @@ The figure above shows the scatter plots between solar power values and some of 
 
 We first start with exploring how our given weather features can help in forecasting the 1 hour ahead of solar power generation, without including any lagged values. In other words, we address the following question, if at a given hour t, we know the following weather features: solar radiation (direct and diffuse), temperature, cloud cover and precipitation, can we estimate the total solar power that will be produced at t? To enrich our model, we add the following time features: hour, year, month and day.<br>
 <br>
-link<br>
+![Model 1](https://github.com/Aishwarya4823/Solar-Power-Generation-Time-Series-Forecasting/blob/main/Images/Model1.JPG)
+<br>
 We see that the random forest and xgboost performed the best between all the models, and had similar performances in terms of average R-squared.
 <br>
 <br>
 ### Forecast With Weather Features & Two Lagged Values<br>
 
 We now explore enriching our models with more features: lagged values. We already observed how a value at time t highly correlates with some of its past values. We again use the same features of the previous model and add to them two lagged values. We now focus on the two lagged values (at t-1 and t-2 because they showed the strongest correlation with solar power generation), we will mention in a later section if the addition of more lagged values can help or not.<br>
-link<br>
+![Model 2](https://github.com/Aishwarya4823/Solar-Power-Generation-Time-Series-Forecasting/blob/main/Images/Model2.JPG)
+<br>
 The performance of all models improved and random forest is the winning model in terms of both metrics.<br><br>
 
 ### Forecast Without Weather Features, Including Two Lagged Values<br>
@@ -61,7 +63,8 @@ We want now to check if we don’t have weather features, will time features and
 We remove the weather features, keep the time features and test our models. We obtain the following
 results:<br>
 
-link<br>
+![Model 3](https://github.com/Aishwarya4823/Solar-Power-Generation-Time-Series-Forecasting/blob/main/Images/Model3.JPG)
+<br>
 Surprisingly, we see how random Forest and XGBoost have very similar performance (even slightly better here) to when we had weather features. This might suggest that for short term forecasting (1 hour ahead), the lagged values as well as the time features contain enough information to predict for the next hour, so that we don’t rely on weather features. Thus we select this as our **final model**.<br><br>
 
 ## Conclusion<br>
